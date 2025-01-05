@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { StatusBar } from "react-native";
 import { useContext } from "react";
-import { AuthContext } from "../../contextxApi";
+import { AuthContext } from "../../contextApi";
 
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
@@ -52,11 +52,11 @@ export default function SingOut() {
           />
 
           <TouchableOpacity style={s.bnts} onPress={Criar}>
-            <Text>Fazer cadastro</Text>
+            <Text style={s.text}>Fazer cadastro</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={s.bnts} onPress={() => navigation.goBack()}>
-            <Text>Voltar</Text>
+            <Text style={s.text}>Voltar</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -103,4 +103,8 @@ const s = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  text:{
+    fontFamily: 'Arial',
+    color:'white'
+  }
 });

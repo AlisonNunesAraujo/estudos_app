@@ -1,9 +1,9 @@
 import NavStack from "./navstack";
-import Home from "../pages/home";
+import Nav from "./nav";
 import { useState } from "react";
 
 import { useContext } from "react";
-import {AuthContext }from "../contextxApi";
+import {AuthContext }from "../contextApi";
 
 
 export default function Privado(){
@@ -13,6 +13,6 @@ export default function Privado(){
     const [user,setUser] = useState(false)
 
     return(
-        isAuth ? <Home/> : <NavStack/>
+        isAuth ? <Nav/> : <NavStack/>
     )
 }

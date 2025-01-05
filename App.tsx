@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import Privado from "./src/routs/private";
-import AuthProvider from "./src/contextxApi";
+import AuthProvider from "./src/contextApi";
 export default function App() {
   return (
     <NavigationContainer>
