@@ -1,19 +1,52 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  FlatList,
 } from "react-native";
 
 import Header from "../../components/header/header";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParamlist } from "../../routs/nav";
 import { useNavigation } from "@react-navigation/native";
+import { getDocs } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConection";
+import { collection } from "firebase/firestore";
+import { useIsFocused } from "@react-navigation/native";
+import RenderTrilha from "../../components/renderTrilha";
+
+
+interface type  {
+  trilha: string;
+}
 
 export default function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<StackParamlist>>();
+  const [dados, setDados] = useState<type[]>([]);
+  const focused = useIsFocused();
+
+  useEffect(() => {
+    async function RendleDados() {
+      const response = collection(db, "trilha");
+
+      getDocs(response).then((snapshot) => {
+        let lista = [];
+
+        snapshot.forEach((doc) => {
+          lista.push({
+            trilha: doc.data().trilha,
+          });
+
+          setDados(lista);
+        });
+      });
+    }
+
+    RendleDados();
+  }, [focused]);
 
   return (
     <View>
@@ -30,6 +63,12 @@ export default function Home() {
           </TouchableOpacity>
         </View>
       </View>
+
+      <FlatList
+      horizontal={true}
+        data={dados}
+        renderItem={({ item }) => <RenderTrilha item={item.trilha} />} 
+      />
     </View>
   );
 }

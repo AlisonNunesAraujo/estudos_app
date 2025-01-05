@@ -41,7 +41,7 @@ export default function AddTrilha() {
             
                 <Text style={s.title}>Adicione algo na sua trilha de estudos!</Text>
                 <TextInput
-                  placeholder="Trilha"
+                  placeholder="Titulo da sua trilha"
                   placeholderTextColor="green"
                   value={trilha}
                   onChangeText={setTrilha}

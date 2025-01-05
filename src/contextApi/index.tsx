@@ -9,6 +9,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { addDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConection";
 import { collection } from "firebase/firestore";
+
+
 export const AuthContext = createContext({} as State);
 
 type State = {
