@@ -1,9 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
-  ScrollView,
   StyleSheet,
   FlatList,
 } from "react-native";
@@ -19,8 +18,9 @@ import { useIsFocused } from "@react-navigation/native";
 import RenderTrilha from "../../components/renderTrilha";
 
 
-interface type  {
+interface type {
   trilha: string;
+  nome: string;
 }
 
 export default function Home() {
@@ -38,6 +38,7 @@ export default function Home() {
         snapshot.forEach((doc) => {
           lista.push({
             trilha: doc.data().trilha,
+            nome: doc.data().nomeTrilha,
           });
 
           setDados(lista);
@@ -54,7 +55,7 @@ export default function Home() {
       <View style={s.areaTrilha}>
         <Text style={s.textTrilha}>Trilha de estudos</Text>
 
-        <View>
+        <View style={s.areaAdd} >
           <TouchableOpacity
             style={s.bntTrilha}
             onPress={() => navigation.navigate("AddTrilha")}
@@ -65,10 +66,14 @@ export default function Home() {
       </View>
 
       <FlatList
-      horizontal={true}
+        style={s.flat}
+        horizontal={true}
         data={dados}
-        renderItem={({ item }) => <RenderTrilha item={item.trilha} />} 
+        renderItem={({ item }) => (
+          <RenderTrilha trilha={item.trilha} nome={item.nome} />
+        )}
       />
+
     </View>
   );
 }
@@ -78,18 +83,27 @@ const s = StyleSheet.create({
     flex: 1,
   },
   areaTrilha: {
+    width: '100%',
+    height: 150,
     marginTop: 20,
-    borderWidth: 1,
     gap: 20,
   },
 
   textTrilha: {
-    fontSize: 20,
-    marginLeft: 10,
+    fontSize: 25,
+    marginLeft: 30,
     fontFamily: "Arial",
     fontWeight: "700",
+    
+  },
+  areaAdd:{
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 'auto',
   },
   bntTrilha: {
+    width: '50%',
     padding: 10,
     backgroundColor: "green",
     alignItems: "center",
@@ -101,4 +115,9 @@ const s = StyleSheet.create({
     fontWeight: "700",
     color: "white",
   },
+
+  flat:{
+    width: '100%',
+    marginTop: 40,
+  }
 });

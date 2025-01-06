@@ -4,11 +4,16 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "../pages/home";
 import AddTrilha from "../pages/addTrilha";
 import EditarTrilha from "../pages/editarTrilha";
+import RenderTrilha from "../components/renderTrilha";
 
  export type StackParamlist = {
     Home: undefined;
     AddTrilha: undefined;
-    EditarTrilha: undefined;
+    EditarTrilha: {
+        trilha: string,
+        nome: string,
+    };
+    
 }
 
 

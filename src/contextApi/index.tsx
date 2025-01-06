@@ -9,7 +9,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { addDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConection";
 import { collection } from "firebase/firestore";
-
+import { signOut } from "firebase/auth";
 
 export const AuthContext = createContext({} as State);
 
@@ -19,6 +19,7 @@ type State = {
   singOut: (info: functionSingIn) => Promise<void>;
   singIn: (info: functionSingIn) => Promise<void>;
   AddTrilha: (info: functionAdd) => Promise<void>
+  LogOut: (info: functionLogout) => Promise<void> 
 
 };
 
@@ -37,7 +38,12 @@ type functionSingIn = {
 };
 
 type functionAdd = {
-  trilha: string|number
+  trilha: string|number,
+  nomeTrilha: string|number;
+}
+
+type functionLogout = {
+  user: boolean,
 }
 
 export default function AuthProvider({ children }: TypeProvider) {
@@ -101,10 +107,11 @@ export default function AuthProvider({ children }: TypeProvider) {
   }
 
 
-  async function AddTrilha({trilha} : functionAdd){
+  async function AddTrilha({trilha, nomeTrilha} : functionAdd){
     try{
       const response = await addDoc(collection(db, "trilha"), {
         trilha: trilha,
+        nomeTrilha: nomeTrilha,
         uid: user.uid
       })
       alert('okk')
@@ -114,9 +121,22 @@ export default function AuthProvider({ children }: TypeProvider) {
     }
   }
 
+  async function LogOut(){
+   try{
+    const data = await signOut(auth)
+    AsyncStorage.clear('user')
+  
+    alert('saiu da conta')
+
+   }
+   catch{
+    alert('erro')
+   }
+  }
+
 
   return (
-    <AuthContext.Provider value={{ isAuth, user, singOut, singIn,AddTrilha }}>
+    <AuthContext.Provider value={{ isAuth, user, singOut, singIn,AddTrilha,LogOut }}>
       {children}
     </AuthContext.Provider>
   );

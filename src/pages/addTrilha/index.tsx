@@ -12,7 +12,6 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 
-
 import { useContext } from "react";
 import { AuthContext } from "../../contextApi";
 
@@ -20,37 +19,48 @@ export default function AddTrilha() {
   const { AddTrilha } = useContext(AuthContext);
   const navigation = useNavigation();
   const [trilha, setTrilha] = useState("");
+  const [nomeTrilha, setNometrila] = useState("");
 
   async function Mandar() {
-    if (trilha == "") {
+    if (trilha == "" && nomeTrilha == "") {
       alert("o campo é obrigatorio");
       return;
     }
-    AddTrilha({ trilha });
+    AddTrilha({ trilha,nomeTrilha });
   }
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={s.conteiner}>
         <View>
-          <TouchableOpacity style={s.bntVoltar} onPress={()=> navigation.goBack()}>
+          <TouchableOpacity
+            style={s.bntVoltar}
+            onPress={() => navigation.goBack()}
+          >
             <Text>Voltar</Text>
           </TouchableOpacity>
         </View>
         <View style={s.form}>
-            
-                <Text style={s.title}>Adicione algo na sua trilha de estudos!</Text>
-                <TextInput
-                  placeholder="Titulo da sua trilha"
-                  placeholderTextColor="green"
-                  value={trilha}
-                  onChangeText={setTrilha}
-                  style={s.input}
-                />
-                <TouchableOpacity onPress={Mandar} style={s.bntSalvar}>
-                  <Text style={s.textBnt}>Salvar</Text>
-                </TouchableOpacity>
-             
+          <Text style={s.title}>Adicione algo na sua trilha de estudos!</Text>
+          <TextInput
+            placeholder="Titulo da sua trilha"
+            placeholderTextColor="green"
+            value={trilha}
+            onChangeText={setTrilha}
+            style={s.input}
+          />
+
+          <TextInput
+            placeholder="Oque vai estudar"
+            placeholderTextColor="green"
+            value={nomeTrilha}
+            onChangeText={setNometrila}
+            style={s.input}
+          />
+
+          <TouchableOpacity onPress={Mandar} style={s.bntSalvar}>
+            <Text style={s.textBnt}>Salvar</Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
@@ -83,6 +93,7 @@ const s = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     color: "black",
+    margin: 10,
   },
   bntSalvar: {
     width: "40%",
@@ -98,11 +109,11 @@ const s = StyleSheet.create({
     fontFamily: "Arial",
     fontWeight: "700",
   },
-  bntVoltar:{
-    width: '30%',
+  bntVoltar: {
+    width: "30%",
     height: 40,
     marginLeft: 15,
     marginTop: 20,
-    justifyContent: 'center',
-  }
+    justifyContent: "center",
+  },
 });
