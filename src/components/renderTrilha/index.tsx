@@ -4,13 +4,13 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParamlist } from "../../routs/nav";
 
-export default function RenderTrilha({ trilha, nome } : {trilha : string, nome : string}) {
+export default function RenderTrilha({ trilha, nome } : {trilha : string, nome : string,}) {
   const navigation = useNavigation<NativeStackNavigationProp<StackParamlist>>();
 
   return (
     <TouchableOpacity
       style={s.bnt}
-      onPress={() => navigation.navigate("EditarTrilha", { trilha, nome })}
+      onPress={() => navigation.navigate("EditarTrilha", { trilha, nome})}
     >
       <Text style={s.title}>{trilha}</Text>
       

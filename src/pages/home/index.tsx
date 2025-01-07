@@ -70,7 +70,7 @@ export default function Home() {
         horizontal={true}
         data={dados}
         renderItem={({ item }) => (
-          <RenderTrilha trilha={item.trilha} nome={item.nome} />
+          <RenderTrilha trilha={item.trilha} nome={item.nome}  />
         )}
       />
 

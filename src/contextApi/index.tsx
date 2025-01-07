@@ -10,6 +10,9 @@ import { addDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConection";
 import { collection } from "firebase/firestore";
 import { signOut } from "firebase/auth";
+import { doc } from "firebase/firestore";
+import { deleteDoc } from "firebase/firestore";
+
 
 export const AuthContext = createContext({} as State);
 
@@ -19,13 +22,12 @@ type State = {
   singOut: (info: functionSingIn) => Promise<void>;
   singIn: (info: functionSingIn) => Promise<void>;
   AddTrilha: (info: functionAdd) => Promise<void>
-  LogOut: (info: functionLogout) => Promise<void> 
-
+  LogOut: (info: functionLogout) => Promise<void>;
 };
 
 type states = {
   email: null | string;
-  uid: number | string;
+  uid: number | string | null;
 };
 
 type TypeProvider = {
@@ -46,6 +48,8 @@ type functionLogout = {
   user: boolean,
 }
 
+
+
 export default function AuthProvider({ children }: TypeProvider) {
   const [user, setUser] = useState<states>({
     email: "",
@@ -56,7 +60,7 @@ export default function AuthProvider({ children }: TypeProvider) {
   useEffect(() => {
     async function SaveUser() {
       try {
-        const user = await AsyncStorage.getItem("user");
+        const user = await AsyncStorage.getItem("@user");
         if (user) {
           setUser(JSON.parse(user));
         }
@@ -81,7 +85,7 @@ export default function AuthProvider({ children }: TypeProvider) {
         uid: data.user.uid,
       };
 
-      await AsyncStorage.setItem("user", JSON.stringify(ver));
+      await AsyncStorage.setItem("@user", JSON.stringify(ver));
     } catch {
       alert("erro");
     }
@@ -100,7 +104,7 @@ export default function AuthProvider({ children }: TypeProvider) {
         email: response.user.email,
         uid: response.user.uid,
       };
-      await AsyncStorage.setItem("user", JSON.stringify(ver));
+      await AsyncStorage.setItem("@user", JSON.stringify(ver));
     } catch {
       alert("erro");
     }
@@ -124,10 +128,9 @@ export default function AuthProvider({ children }: TypeProvider) {
   async function LogOut(){
    try{
     const data = await signOut(auth)
-    AsyncStorage.clear('user')
-  
-    alert('saiu da conta')
-
+    AsyncStorage.clear()
+    setUser({email:"", uid: ""})
+    alert('ok')
    }
    catch{
     alert('erro')
@@ -135,8 +138,11 @@ export default function AuthProvider({ children }: TypeProvider) {
   }
 
 
+  
+
+
   return (
-    <AuthContext.Provider value={{ isAuth, user, singOut, singIn,AddTrilha,LogOut }}>
+    <AuthContext.Provider value={{ isAuth, user, singOut, singIn,AddTrilha,LogOut, }}>
       {children}
     </AuthContext.Provider>
   );
