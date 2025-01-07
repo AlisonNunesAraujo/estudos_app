@@ -29,7 +29,8 @@ const s = StyleSheet.create({
     height: 60,
     backgroundColor: "white",
     justifyContent: "center",
-    boxShadow: "0px 2px 10px 0px",
+    boxShadow: "1px 1px 8px 1px",
+    position: "static",
   },
   area: {
     width: "100%",

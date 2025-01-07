@@ -6,6 +6,8 @@ import {
 } from "react-native";
 import { useRoute, RouteProp } from "@react-navigation/native";
 
+import Feather from '@expo/vector-icons/Feather'
+
 type RouteEditarTrilhaProp = {
   EditarTrilha: {
     nome: string;
@@ -24,15 +26,13 @@ export default function EditarTrilha() {
         <Text style={s.title}>{route.params?.trilha}</Text>
 
         <View style={s.areaText}>
+        <Feather color='red' size={30} name='check'/>
           <Text style={s.text}>
-            <Text>=== </Text>
+           
             {route.params?.nome}
           </Text>
         </View>
 
-        <TouchableOpacity>
-          <Text>Excluir dados</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );
@@ -49,9 +49,11 @@ const s = StyleSheet.create({
   },
   areaText: {
     width: "90%",
-    justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 30,
+    flexDirection: 'row',
+    gap: 10,
+    padding: 10,
   },
   title: {
     fontSize: 27,
@@ -66,6 +68,5 @@ const s = StyleSheet.create({
     fontFamily: "Arial",
     letterSpacing: 3,
     fontSize: 15,
-    marginLeft: 10,
   },
 });

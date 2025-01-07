@@ -81,9 +81,10 @@ const s = StyleSheet.create({
   },
   title: {
     fontSize: 25,
-    fontWeight: "bold",
+    fontWeight: "700",
     marginBottom: 10,
     fontFamily: "serif",
+    letterSpacing: 2,
   },
 
   inputs: {

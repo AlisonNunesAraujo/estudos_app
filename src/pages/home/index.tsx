@@ -5,7 +5,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   FlatList,
+  SafeAreaView,
 } from "react-native";
+import { StatusBar } from "react-native";
 
 import Header from "../../components/header/header";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -16,7 +18,6 @@ import { db } from "../../firebase/firebaseConection";
 import { collection } from "firebase/firestore";
 import { useIsFocused } from "@react-navigation/native";
 import RenderTrilha from "../../components/renderTrilha";
-
 
 interface type {
   trilha: string;
@@ -50,31 +51,32 @@ export default function Home() {
   }, [focused]);
 
   return (
-    <View>
+    <SafeAreaView>
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
       <Header />
       <View style={s.areaTrilha}>
         <Text style={s.textTrilha}>Trilha de estudos</Text>
 
-        <View style={s.areaAdd} >
+        <View style={s.areaAdd}>
           <TouchableOpacity
             style={s.bntTrilha}
             onPress={() => navigation.navigate("AddTrilha")}
           >
-            <Text style={s.textbntTrilha}>Adicionar trilha de estudos!</Text>
+            <Text style={s.textbntTrilha}>+</Text>
           </TouchableOpacity>
         </View>
       </View>
 
       <FlatList
         style={s.flat}
+        showsHorizontalScrollIndicator={false}
         horizontal={true}
         data={dados}
         renderItem={({ item }) => (
-          <RenderTrilha trilha={item.trilha} nome={item.nome}  />
+          <RenderTrilha trilha={item.trilha} nome={item.nome} />
         )}
       />
-
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -83,29 +85,29 @@ const s = StyleSheet.create({
     flex: 1,
   },
   areaTrilha: {
-    width: '100%',
-    height: 150,
-    marginTop: 20,
-    gap: 20,
+    width: "100%",
+    height: "20%",
+    marginTop: 15,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 
   textTrilha: {
-    fontSize: 25,
+    fontSize: 30,
     marginLeft: 30,
     fontFamily: "Arial",
     fontWeight: "700",
-    
   },
-  areaAdd:{
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 'auto',
+  areaAdd: {
+    width: "20%",
+    height: "80%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   bntTrilha: {
-    width: '50%',
+    width: "50%",
     padding: 10,
-    backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 5,
@@ -113,11 +115,12 @@ const s = StyleSheet.create({
   textbntTrilha: {
     fontFamily: "Arial",
     fontWeight: "700",
-    color: "white",
+    color: "black",
+    fontSize: 20,
   },
 
-  flat:{
-    width: '100%',
+  flat: {
+    width: "100%",
     marginTop: 40,
-  }
+  },
 });

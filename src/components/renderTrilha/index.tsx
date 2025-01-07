@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParamlist } from "../../routs/nav";
 
+
 export default function RenderTrilha({ trilha, nome } : {trilha : string, nome : string,}) {
   const navigation = useNavigation<NativeStackNavigationProp<StackParamlist>>();
 
@@ -22,7 +23,7 @@ const s = StyleSheet.create({
   bnt: {
     width: 130,
     height: 130,
-    backgroundColor: "white",
+    backgroundColor: "#fff3ff",
     margin: 13,
     borderRadius: 5,
     boxShadow: "0px 2px 0px 0px ",
