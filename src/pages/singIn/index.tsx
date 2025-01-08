@@ -16,6 +16,8 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { StackParamlist } from "../../routs/navstack";
 
+import { showMessage} from 'react-native-flash-message'
+
 export default function SingIn() {
   const navigation = useNavigation<NativeStackNavigationProp<StackParamlist>>();
 
@@ -25,15 +27,23 @@ export default function SingIn() {
   const [senha, setSenha] = useState("");
 
   async function Logar() {
+    if(email === '' && senha === ''){
+      showMessage({
+        message: 'Preencha todos os campos',
+        type: 'warning',
+        duration: 3000,
+      })
+      return
+    }
     singIn({ email, senha });
   }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={s.conteiner}>
-        <StatusBar backgroundColor="blue" barStyle={"light-content"} />
+        <StatusBar backgroundColor="white" barStyle={"dark-content"} />
         <View style={s.form}>
-          <Text style={s.title}>Faça Login</Text>
+          <Text style={s.title}>Entre na sua conta!</Text>
 
           <TextInput
             placeholder="E-Mail"
@@ -67,7 +77,7 @@ export default function SingIn() {
 const s = StyleSheet.create({
   conteiner: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
   },
 
   form: {
@@ -75,30 +85,32 @@ const s = StyleSheet.create({
     height: 350,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "blue",
-    borderEndEndRadius: 18,
-    borderStartEndRadius: 18,
+    backgroundColor: "cinze",
+    borderEndEndRadius: 28,
+    borderStartEndRadius: 28,
+    boxShadow: '0px 0px 8px 0px',
   },
   title: {
     fontSize: 25,
     fontWeight: "700",
     marginBottom: 10,
-    fontFamily: "serif",
+    fontFamily: "Arial",
     letterSpacing: 2,
   },
 
   inputs: {
-    width: "70%",
+    width: "80%",
     height: 40,
     padding: 10,
     backgroundColor: "#fff",
     borderRadius: 5,
-    marginBottom: 10,
+    marginBottom: 15,
+    boxShadow:  '0px 1px 4px 0px'
   },
   bnts: {
     width: "50%",
     height: 40,
-    backgroundColor: "green",
+    backgroundColor: "gray",
     marginBottom: 10,
     borderRadius: 5,
     alignItems: "center",
@@ -107,6 +119,6 @@ const s = StyleSheet.create({
 
   text: {
     fontFamily: "Arial",
-    color: 'white'
+    color: "white",
   },
 });

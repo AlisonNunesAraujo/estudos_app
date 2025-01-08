@@ -15,6 +15,8 @@ import { AuthContext } from "../../contextApi";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 
+import {showMessage} from 'react-native-flash-message'
+
 export default function SingOut() {
   const { singOut } = useContext(AuthContext);
 
@@ -25,8 +27,11 @@ export default function SingOut() {
 
   async function Criar() {
     if (email == "" && senha == "") {
-      alert("Preencha todos os campos");
-      return;
+     showMessage({
+      message: 'Preencha todos os campos',
+      type: 'warning',
+      duration: 3000
+     })
     }
     singOut({ email, senha });
   }
@@ -34,7 +39,7 @@ export default function SingOut() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={s.conteiner}>
-        <StatusBar backgroundColor='blue' barStyle={"light-content"}/>
+        <StatusBar backgroundColor='white' barStyle={"dark-content"}/>
         <View style={s.form}>
           <Text style={s.title}>Faça seu cadastro!</Text>
 
@@ -67,7 +72,7 @@ export default function SingOut() {
 const s = StyleSheet.create({
   conteiner: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
   },
 
   form: {
@@ -75,9 +80,10 @@ const s = StyleSheet.create({
     height: 350,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "blue",
-    borderEndEndRadius: 18,
-    borderStartEndRadius: 18,
+    backgroundColor: "cinze",
+    borderEndEndRadius: 28,
+    borderStartEndRadius: 28,
+    boxShadow: '0px 0px 8px 0px',
   },
   title: {
     fontSize: 25,
@@ -92,12 +98,13 @@ const s = StyleSheet.create({
     padding: 10,
     backgroundColor: "#fff",
     borderRadius: 5,
-    marginBottom: 10,
+    marginBottom: 15,
+    boxShadow:  '0px 1px 4px 0px'
   },
   bnts: {
     width: "50%",
     height: 40,
-    backgroundColor: "green",
+    backgroundColor: "gray",
     marginBottom: 10,
     borderRadius: 5,
     alignItems: "center",

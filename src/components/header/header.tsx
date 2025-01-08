@@ -1,22 +1,21 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useContext } from "react";
-
+import Feather from "@expo/vector-icons/Feather"
 import { AuthContext } from "../../contextApi";
 
 export default function Header() {
   const { user, LogOut } = useContext(AuthContext);
 
-  async function Sair(){
-    LogOut({user: false});
+  async function Sair() {
+    LogOut({ user: false });
   }
-
 
   return (
     <View style={s.container}>
       <View style={s.area}>
         <Text style={s.textEmail}>Email: {user.email}</Text>
         <TouchableOpacity style={s.icon} onPress={Sair}>
-          <Text>Sair</Text>
+          <Feather name='log-out' color='black' size={25}/>
         </TouchableOpacity>
       </View>
     </View>

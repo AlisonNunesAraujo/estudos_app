@@ -11,6 +11,8 @@ import {
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
+import {showMessage} from 'react-native-flash-message'
+import Feather from '@expo/vector-icons/Feather'
 
 import { useContext } from "react";
 import { AuthContext } from "../../contextApi";
@@ -22,11 +24,17 @@ export default function AddTrilha() {
   const [nomeTrilha, setNometrila] = useState("");
 
   async function Mandar() {
-    if (trilha == "" && nomeTrilha == "") {
-      alert("o campo é obrigatorio");
+    if (trilha === "" && nomeTrilha === "") {
+      showMessage({
+        message: 'Preencha todos os campos',
+        type: 'warning',
+        duration: 2000,
+      })
       return;
     }
     AddTrilha({ trilha,nomeTrilha });
+    setTrilha('')
+    setNometrila('')
   }
 
   return (
@@ -37,14 +45,15 @@ export default function AddTrilha() {
             style={s.bntVoltar}
             onPress={() => navigation.goBack()}
           >
-            <Text>Voltar</Text>
+              <Feather name='chevron-left' color='black' size={30}/>
+           
           </TouchableOpacity>
         </View>
         <View style={s.form}>
           <Text style={s.title}>Adicione algo na sua trilha de estudos!</Text>
           <TextInput
             placeholder="Titulo da sua trilha"
-            placeholderTextColor="green"
+            placeholderTextColor="black"
             value={trilha}
             onChangeText={setTrilha}
             style={s.input}
@@ -52,7 +61,7 @@ export default function AddTrilha() {
 
           <TextInput
             placeholder="Oque vai estudar"
-            placeholderTextColor="green"
+            placeholderTextColor="black"
             value={nomeTrilha}
             onChangeText={setNometrila}
             style={s.input}
@@ -70,26 +79,26 @@ export default function AddTrilha() {
 const s = StyleSheet.create({
   conteiner: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "cinze",
   },
   form: {
     width: "100%",
     height: 350,
-    backgroundColor: "white",
+    backgroundColor: "cinze",
     alignItems: "center",
   },
   title: {
     fontSize: 23,
     fontWeight: "bold",
     marginBottom: 10,
-    fontFamily: "serif",
+    fontFamily: "Arial",
     marginTop: 50,
   },
 
   input: {
     width: "90%",
     height: 40,
-    boxShadow: "0px 0px 0px 1px black",
+    boxShadow: "0px 2px 6px 0px",
     padding: 10,
     borderRadius: 5,
     color: "black",
@@ -110,10 +119,16 @@ const s = StyleSheet.create({
     fontWeight: "700",
   },
   bntVoltar: {
-    width: "30%",
+    width: "10%",
     height: 40,
     marginLeft: 15,
     marginTop: 20,
-    justifyContent: "center",
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
   },
+
+  
 });

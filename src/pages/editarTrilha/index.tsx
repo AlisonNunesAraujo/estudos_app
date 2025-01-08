@@ -1,17 +1,14 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useRoute, RouteProp } from "@react-navigation/native";
 
-import Feather from '@expo/vector-icons/Feather'
+import Feather from "@expo/vector-icons/Feather";
+
 
 type RouteEditarTrilhaProp = {
   EditarTrilha: {
     nome: string;
     trilha: string;
+    uidtrilha: string;
   };
 };
 
@@ -20,19 +17,16 @@ type EditarProp = RouteProp<RouteEditarTrilhaProp, "EditarTrilha">;
 export default function EditarTrilha() {
   const route = useRoute<EditarProp>();
 
+  
   return (
     <View style={s.conteiner}>
       <View style={s.areaInfo}>
         <Text style={s.title}>{route.params?.trilha}</Text>
 
         <View style={s.areaText}>
-        <Feather color='red' size={30} name='check'/>
-          <Text style={s.text}>
-           
-            {route.params?.nome}
-          </Text>
+          <Feather color="red" size={25} name="award" />
+          <Text style={s.text}>{route.params?.nome}</Text>
         </View>
-
       </View>
     </View>
   );
@@ -41,7 +35,7 @@ export default function EditarTrilha() {
 const s = StyleSheet.create({
   conteiner: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "cinze",
   },
   areaInfo: {
     width: "100%",
@@ -51,7 +45,7 @@ const s = StyleSheet.create({
     width: "90%",
     alignItems: "center",
     marginTop: 30,
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 10,
     padding: 10,
   },

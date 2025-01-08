@@ -19,10 +19,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+        
+      },
+      "package": "com.alisonaraujo.estudos"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7f1e91d8-cc36-49c1-acea-8278d980a8c6"
+      }
     }
   }
 }

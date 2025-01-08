@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import { StatusBar } from "react-native";
 
+import Feather from '@expo/vector-icons/Feather'
+
 import Header from "../../components/header/header";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParamlist } from "../../routs/nav";
@@ -18,16 +20,26 @@ import { db } from "../../firebase/firebaseConection";
 import { collection } from "firebase/firestore";
 import { useIsFocused } from "@react-navigation/native";
 import RenderTrilha from "../../components/renderTrilha";
+import { deleteDoc } from "firebase/firestore";
+
 
 interface type {
   trilha: string;
   nome: string;
+  uidtrilha: string;
 }
+
+type id = {
+  uidtrilha: string;
+}
+
+import { useContext } from "react";
+import { AuthContext } from "../../contextApi";
 
 export default function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<StackParamlist>>();
   const [dados, setDados] = useState<type[]>([]);
-  const focused = useIsFocused();
+
 
   useEffect(() => {
     async function RendleDados() {
@@ -40,6 +52,7 @@ export default function Home() {
           lista.push({
             trilha: doc.data().trilha,
             nome: doc.data().nomeTrilha,
+            uidtrilha: doc.id
           });
 
           setDados(lista);
@@ -48,7 +61,10 @@ export default function Home() {
     }
 
     RendleDados();
-  }, [focused]);
+  }, [dados]);
+
+
+ 
 
   return (
     <SafeAreaView>
@@ -56,13 +72,14 @@ export default function Home() {
       <Header />
       <View style={s.areaTrilha}>
         <Text style={s.textTrilha}>Trilha de estudos</Text>
-
+      
         <View style={s.areaAdd}>
-          <TouchableOpacity
+          <TouchableOpacity 
             style={s.bntTrilha}
+            
             onPress={() => navigation.navigate("AddTrilha")}
           >
-            <Text style={s.textbntTrilha}>+</Text>
+            <Feather name='file-plus' color='black' size={25}/>
           </TouchableOpacity>
         </View>
       </View>
@@ -73,7 +90,7 @@ export default function Home() {
         horizontal={true}
         data={dados}
         renderItem={({ item }) => (
-          <RenderTrilha trilha={item.trilha} nome={item.nome} />
+          <RenderTrilha trilha={item.trilha} nome={item.nome} uidtrilha={item.uidtrilha}/>
         )}
       />
     </SafeAreaView>
@@ -91,6 +108,7 @@ const s = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    fontFamily: 'Arial'
   },
 
   textTrilha: {
@@ -108,11 +126,13 @@ const s = StyleSheet.create({
   bntTrilha: {
     width: "50%",
     padding: 10,
+    backgroundColor: 'white',
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 5,
   },
   textbntTrilha: {
+    
     fontFamily: "Arial",
     fontWeight: "700",
     color: "black",
