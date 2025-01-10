@@ -10,21 +10,23 @@ import { addDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConection";
 import { collection } from "firebase/firestore";
 import { signOut } from "firebase/auth";
-import { deleteDoc } from "firebase/firestore";
+import { deleteDoc, getDocs } from "firebase/firestore";
 import { doc } from "firebase/firestore";
 import { showMessage } from "react-native-flash-message";
 import { useNavigation } from "@react-navigation/native";
+
 
 export const AuthContext = createContext({} as State);
 
 type State = {
   user: states;
   isAuth: boolean;
+  dados: TrilhaProps[]
   singOut: (info: functionSingIn) => Promise<void>;
   singIn: (info: functionSingIn) => Promise<void>;
   AddTrilha: (info: functionAdd) => Promise<void>;
   LogOut: (info: functionLogout) => Promise<void>;
-  Apagar: (info: idTrilha) => Promise<void>;
+  Apagar: (idtrilha: string) => Promise<void>;
 };
 
 type states = {
@@ -54,11 +56,20 @@ type idTrilha = {
   uidtrilha: string;
 };
 
+export interface TrilhaProps {
+  trilha: string;
+  nome: string;
+  uidtrilha: string;
+}
+
 export default function AuthProvider({ children }: TypeProvider) {
   const [user, setUser] = useState<states>({
     email: "",
     uid: "",
   });
+
+  const [dados, setDados] = useState<TrilhaProps[]>([]);
+
   const isAuth = !!user.email && !!user.uid;
 
   const navigation = useNavigation();
@@ -76,6 +87,26 @@ export default function AuthProvider({ children }: TypeProvider) {
     }
     SaveUser();
   }, []);
+
+  useEffect(() => {
+    async function RendleDados() {
+      const response = collection(db, "trilha");
+
+      const snapshot = await getDocs(response)
+      let lista: TrilhaProps[] = []
+      
+      snapshot.forEach((doc) => {
+        lista.push({
+          trilha: doc.data().trilha,
+          nome: doc.data().nomeTrilha,
+          uidtrilha: doc.id,
+        });
+      })
+      setDados(lista)
+    }
+
+    RendleDados();
+  }, [dados]);
 
   async function singOut({ email, senha }: functionSingIn) {
     try {
@@ -167,11 +198,16 @@ export default function AuthProvider({ children }: TypeProvider) {
     }
   }
 
-  async function Apagar({ uidtrilha }: idTrilha) {
+  async function Apagar( uidtrilha:  string) {
     const data = doc(db, "trilha", uidtrilha);
 
     await deleteDoc(data)
       .then(() => {
+
+        setDados((prevDados) => 
+          prevDados.filter((item) => item.uidtrilha !== uidtrilha)
+        )
+
         showMessage({
           message: "Trilha deletada com sucesso",
           type: "info",
@@ -188,7 +224,7 @@ export default function AuthProvider({ children }: TypeProvider) {
 
   return (
     <AuthContext.Provider
-      value={{ isAuth, user, singOut, singIn, AddTrilha, LogOut, Apagar }}
+      value={{ isAuth, user, singOut, singIn, AddTrilha, LogOut, Apagar, dados }}
     >
       {children}
     </AuthContext.Provider>
