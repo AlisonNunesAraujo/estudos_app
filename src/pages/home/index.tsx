@@ -21,8 +21,8 @@ import { AuthContext } from "../../contextApi";
 
 export default function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<StackParamlist>>();
-  
-   const { dados } = useContext(AuthContext);
+
+  const { dados } = useContext(AuthContext);
 
   return (
     <SafeAreaView>
@@ -46,10 +46,18 @@ export default function Home() {
         showsHorizontalScrollIndicator={false}
         horizontal={true}
         data={dados}
-        renderItem={({item}) => (
-          <RenderTrilha trilha={item} />
-        )}
+        renderItem={({ item }) => <RenderTrilha trilha={item} />}
       />
+{/* 
+      <View style={s.areaInfo}>
+        <Text style={s.infoTitle}>Nota</Text>
+        <Text style={s.infoText}>
+          Esse aplicativo tem como intuito armazenar as trilhas de estudos para
+          que não sejam esquecidas, sendo assim uma ferramenta de auxilio para
+          os estudantes. Podendo adicionar uma trilha de estudos e deletar
+          quando ja estiver visto todo o conteudo relacionado a trilha!
+        </Text>
+      </View> */}
     </SafeAreaView>
   );
 }
@@ -98,5 +106,20 @@ const s = StyleSheet.create({
   flat: {
     width: "100%",
     marginTop: 40,
+  },
+
+  areaInfo: {
+    width: "100%",
+    padding: 15,
+  },
+
+  infoTitle: {
+    fontWeight: "600",
+  },
+  infoText: {
+    fontWeight: "300",
+    letterSpacing: 3,
+    opacity: 0.6,
+    fontFamily: "Arial",
   },
 });

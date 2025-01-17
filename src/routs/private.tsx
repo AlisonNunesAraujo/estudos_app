@@ -9,8 +9,6 @@ import {AuthContext }from "../contextApi";
 export default function Privado(){
     
     const {isAuth} = useContext(AuthContext)
-    
-    const [user,setUser] = useState(false)
 
     return(
         isAuth ? <Nav/> : <NavStack/>

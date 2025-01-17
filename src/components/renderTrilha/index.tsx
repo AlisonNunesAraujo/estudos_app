@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { ActivityIndicator, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -13,7 +13,7 @@ type RenderTrilhaProps = {
 
 export default function RenderTrilha({ trilha }: RenderTrilhaProps) {
   const navigation = useNavigation<NativeStackNavigationProp<StackParamlist>>();
-  const { user, Apagar } = useContext(AuthContext);
+  const { Apagar,loading } = useContext(AuthContext);
 
   async function Delete() {
     Apagar(trilha.uidtrilha);
@@ -31,7 +31,11 @@ export default function RenderTrilha({ trilha }: RenderTrilhaProps) {
     >
       <Text style={s.title}>{trilha.trilha}</Text>
       <TouchableOpacity onPress={Delete} style={s.bntDelete}>
+      {loading ? (
+        <ActivityIndicator color='black' size={20}/>
+      ): (
         <Feather name="trash-2" color="black" size={25} />
+      )}
       </TouchableOpacity>
     </TouchableOpacity>
   );

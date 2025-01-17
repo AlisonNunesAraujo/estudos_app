@@ -13,20 +13,19 @@ import { signOut } from "firebase/auth";
 import { deleteDoc, getDocs } from "firebase/firestore";
 import { doc } from "firebase/firestore";
 import { showMessage } from "react-native-flash-message";
-import { useNavigation } from "@react-navigation/native";
-
 
 export const AuthContext = createContext({} as State);
 
 type State = {
   user: states;
   isAuth: boolean;
-  dados: TrilhaProps[]
+  dados: TrilhaProps[];
   singOut: (info: functionSingIn) => Promise<void>;
   singIn: (info: functionSingIn) => Promise<void>;
   AddTrilha: (info: functionAdd) => Promise<void>;
   LogOut: (info: functionLogout) => Promise<void>;
   Apagar: (idtrilha: string) => Promise<void>;
+  loading: boolean;
 };
 
 type states = {
@@ -69,10 +68,8 @@ export default function AuthProvider({ children }: TypeProvider) {
   });
 
   const [dados, setDados] = useState<TrilhaProps[]>([]);
-
+  const [loading, setLoading] = useState(false);
   const isAuth = !!user.email && !!user.uid;
-
-  const navigation = useNavigation();
 
   useEffect(() => {
     async function SaveUser() {
@@ -92,23 +89,24 @@ export default function AuthProvider({ children }: TypeProvider) {
     async function RendleDados() {
       const response = collection(db, "trilha");
 
-      const snapshot = await getDocs(response)
-      let lista: TrilhaProps[] = []
-      
+      const snapshot = await getDocs(response);
+      let lista: TrilhaProps[] = [];
+
       snapshot.forEach((doc) => {
         lista.push({
           trilha: doc.data().trilha,
           nome: doc.data().nomeTrilha,
           uidtrilha: doc.id,
         });
-      })
-      setDados(lista)
+      });
+      setDados(lista);
     }
 
     RendleDados();
   }, [dados]);
 
   async function singOut({ email, senha }: functionSingIn) {
+    setLoading(true);
     try {
       const data = await createUserWithEmailAndPassword(auth, email, senha);
       showMessage({
@@ -125,6 +123,7 @@ export default function AuthProvider({ children }: TypeProvider) {
         email: data.user.email,
         uid: data.user.uid,
       };
+      setLoading(false);
 
       await AsyncStorage.setItem("@user", JSON.stringify(ver));
     } catch {
@@ -132,10 +131,12 @@ export default function AuthProvider({ children }: TypeProvider) {
         message: "Erro ao cadastrar",
         type: "danger",
       });
+      setLoading(false);
     }
   }
 
   async function singIn({ email, senha }: functionSingIn) {
+    setLoading(true);
     try {
       const response = await signInWithEmailAndPassword(auth, email, senha);
       showMessage({
@@ -151,22 +152,26 @@ export default function AuthProvider({ children }: TypeProvider) {
         email: response.user.email,
         uid: response.user.uid,
       };
+      setLoading(false);
       await AsyncStorage.setItem("@user", JSON.stringify(ver));
     } catch {
       showMessage({
         message: "Erro ao logar",
         type: "warning",
       });
+      setLoading(false);
     }
   }
 
   async function AddTrilha({ trilha, nomeTrilha }: functionAdd) {
+    setLoading(true);
     try {
       const response = await addDoc(collection(db, "trilha"), {
         trilha: trilha,
         nomeTrilha: nomeTrilha,
         uid: user.uid,
       });
+      setLoading(false);
       showMessage({
         message: "Trilha criada com sucesso",
         type: "success",
@@ -177,6 +182,7 @@ export default function AuthProvider({ children }: TypeProvider) {
         message: "Erro ao criar trilha",
         type: "warning",
       });
+      setLoading(false);
     }
   }
 
@@ -198,33 +204,46 @@ export default function AuthProvider({ children }: TypeProvider) {
     }
   }
 
-  async function Apagar( uidtrilha:  string) {
+  async function Apagar(uidtrilha: string) {
+    setLoading(true);
     const data = doc(db, "trilha", uidtrilha);
 
     await deleteDoc(data)
       .then(() => {
-
-        setDados((prevDados) => 
+        setDados((prevDados) =>
           prevDados.filter((item) => item.uidtrilha !== uidtrilha)
-        )
+        );
 
         showMessage({
           message: "Trilha deletada com sucesso",
           type: "info",
           duration: 2000,
         });
+        setLoading(false);
       })
+
       .catch((err) => {
         showMessage({
           message: "Erro ao deletar trilha",
           duration: 2000,
         });
+        setLoading(false);
       });
   }
 
   return (
     <AuthContext.Provider
-      value={{ isAuth, user, singOut, singIn, AddTrilha, LogOut, Apagar, dados }}
+      value={{
+        isAuth,
+        user,
+        singOut,
+        singIn,
+        AddTrilha,
+        LogOut,
+        Apagar,
+        dados,
+        loading,
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   StyleSheet,
+  ActivityIndicator
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
@@ -18,7 +19,9 @@ import { useContext } from "react";
 import { AuthContext } from "../../contextApi";
 
 export default function AddTrilha() {
-  const { AddTrilha } = useContext(AuthContext);
+
+  const { AddTrilha,loading } = useContext(AuthContext);
+
   const navigation = useNavigation();
   const [trilha, setTrilha] = useState("");
   const [nomeTrilha, setNometrila] = useState("");
@@ -68,7 +71,11 @@ export default function AddTrilha() {
           />
 
           <TouchableOpacity onPress={Mandar} style={s.bntSalvar}>
+           {loading ? (
+              <ActivityIndicator color='white' size={20}/>
+           ) : (
             <Text style={s.textBnt}>Salvar</Text>
+           )}
           </TouchableOpacity>
         </View>
       </SafeAreaView>

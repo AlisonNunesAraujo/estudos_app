@@ -7,6 +7,7 @@ import {
   TextInput,
   SafeAreaView,
   StyleSheet,
+  ActivityIndicator
 } from "react-native";
 import { StatusBar } from "react-native";
 import { useContext } from "react";
@@ -18,7 +19,7 @@ import { useState } from "react";
 import {showMessage} from 'react-native-flash-message'
 
 export default function SingOut() {
-  const { singOut } = useContext(AuthContext);
+  const { singOut,loading } = useContext(AuthContext);
 
   const navigation = useNavigation();
 
@@ -57,7 +58,11 @@ export default function SingOut() {
           />
 
           <TouchableOpacity style={s.bnts} onPress={Criar}>
-            <Text style={s.text}>Fazer cadastro</Text>
+            {loading ? (
+              <ActivityIndicator size={20} color="white" />
+            ): (
+              <Text style={s.text}>Fazer cadastro</Text>
+            )}
           </TouchableOpacity>
 
           <TouchableOpacity style={s.bnts} onPress={() => navigation.goBack()}>

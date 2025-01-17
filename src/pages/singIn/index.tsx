@@ -7,6 +7,7 @@ import {
   TextInput,
   SafeAreaView,
   StyleSheet,
+  ActivityIndicator
 } from "react-native";
 import { StatusBar } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -21,7 +22,7 @@ import { showMessage} from 'react-native-flash-message'
 export default function SingIn() {
   const navigation = useNavigation<NativeStackNavigationProp<StackParamlist>>();
 
-  const { singIn } = useContext(AuthContext);
+  const { singIn,loading } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -59,7 +60,11 @@ export default function SingIn() {
           />
 
           <TouchableOpacity style={s.bnts} onPress={Logar}>
+           {loading ? (
+            <ActivityIndicator size={20} color="white" />
+          ): (
             <Text style={s.text}>Acessar</Text>
+          )}
           </TouchableOpacity>
 
           <TouchableOpacity
