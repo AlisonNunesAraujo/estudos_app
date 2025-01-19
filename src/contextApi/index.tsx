@@ -6,13 +6,15 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { addDoc } from "firebase/firestore";
+import { addDoc, query } from "firebase/firestore";
 import { db } from "../firebase/firebaseConection";
-import { collection } from "firebase/firestore";
+import { collection, where } from "firebase/firestore";
 import { signOut } from "firebase/auth";
 import { deleteDoc, getDocs } from "firebase/firestore";
 import { doc } from "firebase/firestore";
 import { showMessage } from "react-native-flash-message";
+
+
 
 export const AuthContext = createContext({} as State);
 
@@ -87,9 +89,10 @@ export default function AuthProvider({ children }: TypeProvider) {
 
   useEffect(() => {
     async function RendleDados() {
+      
       const response = collection(db, "trilha");
-
-      const snapshot = await getDocs(response);
+      const data = query(response, where("uid", "==", user.uid));
+      const snapshot = await getDocs(data);
       let lista: TrilhaProps[] = [];
 
       snapshot.forEach((doc) => {

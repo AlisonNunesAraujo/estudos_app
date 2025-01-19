@@ -52,6 +52,7 @@ export default function SingOut() {
           />
           <TextInput
             placeholder="Senha"
+          secureTextEntry
             value={senha}
             onChangeText={setSenha}
             style={s.inputs}

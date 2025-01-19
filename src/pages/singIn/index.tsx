@@ -7,8 +7,13 @@ import {
   TextInput,
   SafeAreaView,
   StyleSheet,
-  ActivityIndicator
+  ActivityIndicator,
+  Image
 } from "react-native";
+
+import * as Animatable from 'react-native-animatable'
+
+
 import { StatusBar } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useState } from "react";
@@ -43,17 +48,19 @@ export default function SingIn() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={s.conteiner}>
         <StatusBar backgroundColor="white" barStyle={"dark-content"} />
-        <View style={s.form}>
+        <Animatable.View animation={"fadeInDown"} style={s.form}>
           <Text style={s.title}>Entre na sua conta!</Text>
 
           <TextInput
             placeholder="E-Mail"
+
             value={email}
             onChangeText={setEmail}
             style={s.inputs}
           />
           <TextInput
             placeholder="Senha"
+            secureTextEntry
             value={senha}
             onChangeText={setSenha}
             style={s.inputs}
@@ -73,6 +80,10 @@ export default function SingIn() {
           >
             <Text style={s.text}>Fazer cadastro</Text>
           </TouchableOpacity>
+        </Animatable.View>
+
+        <View style={s.areaBemVindo}>
+         <Animatable.Text animation={'fadeInDown'} style={s.textBemVindo}>Bem Vindo!</Animatable.Text>
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
@@ -126,4 +137,14 @@ const s = StyleSheet.create({
     fontFamily: "Arial",
     color: "white",
   },
+  areaBemVindo:{
+    flex: 1,
+    alignItems: "center",
+    marginTop: '20%'
+  },
+  textBemVindo:{
+    fontSize: 35,
+    fontFamily: 'Arial'
+  }
+
 });

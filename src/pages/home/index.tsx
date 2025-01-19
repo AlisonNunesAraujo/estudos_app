@@ -8,7 +8,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import { StatusBar } from "react-native";
-
+import * as Animatable from 'react-native-animatable'
 import Feather from "@expo/vector-icons/Feather";
 
 import Header from "../../components/header/header";
@@ -28,7 +28,7 @@ export default function Home() {
     <SafeAreaView>
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       <Header />
-      <View style={s.areaTrilha}>
+      <Animatable.View animation={'fadeInDown'} style={s.areaTrilha}>
         <Text style={s.textTrilha}>Trilha de estudos</Text>
 
         <View style={s.areaAdd}>
@@ -39,7 +39,7 @@ export default function Home() {
             <Feather name="file-plus" color="black" size={25} />
           </TouchableOpacity>
         </View>
-      </View>
+      </Animatable.View>
 
       <FlatList
         style={s.flat}
@@ -48,16 +48,6 @@ export default function Home() {
         data={dados}
         renderItem={({ item }) => <RenderTrilha trilha={item} />}
       />
-{/* 
-      <View style={s.areaInfo}>
-        <Text style={s.infoTitle}>Nota</Text>
-        <Text style={s.infoText}>
-          Esse aplicativo tem como intuito armazenar as trilhas de estudos para
-          que não sejam esquecidas, sendo assim uma ferramenta de auxilio para
-          os estudantes. Podendo adicionar uma trilha de estudos e deletar
-          quando ja estiver visto todo o conteudo relacionado a trilha!
-        </Text>
-      </View> */}
     </SafeAreaView>
   );
 }

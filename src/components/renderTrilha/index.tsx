@@ -1,4 +1,4 @@
-import { ActivityIndicator, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {View, ActivityIndicator, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -6,6 +6,8 @@ import { StackParamlist } from "../../routs/nav";
 import Feather from "@expo/vector-icons/Feather";
 import { useContext } from "react";
 import { AuthContext, TrilhaProps } from "../../contextApi";
+import * as Animatable from 'react-native-animatable'
+
 
 type RenderTrilhaProps = {
   trilha: TrilhaProps;
@@ -20,7 +22,8 @@ export default function RenderTrilha({ trilha }: RenderTrilhaProps) {
   }
 
   return (
-    <TouchableOpacity
+   <Animatable.View animation={'fadeInDown'}>
+     <TouchableOpacity
       style={s.bnt}
       onPress={() =>
         navigation.navigate("EditarTrilha", {
@@ -38,6 +41,7 @@ export default function RenderTrilha({ trilha }: RenderTrilhaProps) {
       )}
       </TouchableOpacity>
     </TouchableOpacity>
+   </Animatable.View>
   );
 }
 
