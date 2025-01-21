@@ -1,4 +1,10 @@
-import {View, ActivityIndicator, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  ActivityIndicator,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -6,8 +12,7 @@ import { StackParamlist } from "../../routs/nav";
 import Feather from "@expo/vector-icons/Feather";
 import { useContext } from "react";
 import { AuthContext, TrilhaProps } from "../../contextApi";
-import * as Animatable from 'react-native-animatable'
-
+import * as Animatable from "react-native-animatable";
 
 type RenderTrilhaProps = {
   trilha: TrilhaProps;
@@ -15,33 +20,33 @@ type RenderTrilhaProps = {
 
 export default function RenderTrilha({ trilha }: RenderTrilhaProps) {
   const navigation = useNavigation<NativeStackNavigationProp<StackParamlist>>();
-  const { Apagar,loading } = useContext(AuthContext);
+  const { Apagar, loading } = useContext(AuthContext);
 
   async function Delete() {
     Apagar(trilha.uidtrilha);
   }
 
   return (
-   <Animatable.View animation={'fadeInDown'}>
-     <TouchableOpacity
-      style={s.bnt}
-      onPress={() =>
-        navigation.navigate("EditarTrilha", {
-          nome: trilha.nome,
-          trilha: trilha.trilha,
-        })
-      }
-    >
-      <Text style={s.title}>{trilha.trilha}</Text>
-      <TouchableOpacity onPress={Delete} style={s.bntDelete}>
-      {loading ? (
-        <ActivityIndicator color='black' size={20}/>
-      ): (
-        <Feather name="trash-2" color="black" size={25} />
-      )}
+    <Animatable.View animation={"fadeInDown"}>
+      <TouchableOpacity
+        style={s.bnt}
+        onPress={() =>
+          navigation.navigate("EditarTrilha", {
+            nome: trilha.nome,
+            trilha: trilha.trilha,
+          })
+        }
+      >
+        <Text style={s.title}>{trilha.trilha}</Text>
+        <TouchableOpacity onPress={Delete} style={s.bntDelete}>
+          {loading ? (
+            <ActivityIndicator color="black" size={20} />
+          ) : (
+            <Feather name="trash-2" color="black" size={25} />
+          )}
+        </TouchableOpacity>
       </TouchableOpacity>
-    </TouchableOpacity>
-   </Animatable.View>
+    </Animatable.View>
   );
 }
 

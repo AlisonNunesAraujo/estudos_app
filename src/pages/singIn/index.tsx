@@ -101,14 +101,14 @@ const s = StyleSheet.create({
     height: 350,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "cinze",
+    backgroundColor: "#ccc",
     borderEndEndRadius: 28,
     borderStartEndRadius: 28,
     boxShadow: '0px 0px 8px 0px',
   },
   title: {
     fontSize: 25,
-    fontWeight: "700",
+    fontWeight: "600",
     marginBottom: 10,
     fontFamily: "Arial",
     letterSpacing: 2,
@@ -140,11 +140,11 @@ const s = StyleSheet.create({
   areaBemVindo:{
     flex: 1,
     alignItems: "center",
-    marginTop: '20%'
   },
   textBemVindo:{
-    fontSize: 35,
-    fontFamily: 'Arial'
+    fontSize: 55,
+    fontFamily: 'cursive',
+    marginTop: '20%',
   }
 
 });

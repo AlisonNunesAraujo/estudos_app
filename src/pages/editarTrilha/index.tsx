@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet,ScrollView} from "react-native";
+import { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { useRoute, RouteProp } from "@react-navigation/native";
 
 import Feather from "@expo/vector-icons/Feather";
@@ -15,6 +22,9 @@ type EditarProp = RouteProp<RouteEditarTrilhaProp, "EditarTrilha">;
 
 export default function EditarTrilha() {
   const route = useRoute<EditarProp>();
+  const [tarefa, setTarefa] = useState(false);
+
+  
 
   return (
     <ScrollView style={s.conteiner}>
@@ -35,14 +45,14 @@ export default function EditarTrilha() {
       </View>
 
       <View style={s.informacao}>
-              <Text style={s.infoTitle}>Nota</Text>
-              <Text style={s.textInfo}>
-                Esse aplicativo tem como intuito armazenar as trilhas de estudos para
-                que não sejam esquecidas, sendo assim uma ferramenta de auxilio para
-                os estudantes. Podendo adicionar uma trilha de estudos e deletar
-                quando ja estiver visto todo o conteudo relacionado a trilha!
-              </Text>
-            </View>
+        <Text style={s.infoTitle}>Nota</Text>
+        <Text style={s.textInfo}>
+          Esse aplicativo tem como intuito armazenar as trilhas de estudos para
+          que não sejam esquecidas, sendo assim uma ferramenta de auxilio para
+          os estudantes. Podendo adicionar uma trilha de estudos e deletar
+          quando ja estiver visto todo o conteudo relacionado a trilha!
+        </Text>
+      </View>
     </ScrollView>
   );
 }
@@ -54,7 +64,7 @@ const s = StyleSheet.create({
   },
   areaInfo: {
     width: "100%",
-    height: 'auto',
+    height: "auto",
   },
   areaText: {
     width: "90%",
@@ -98,7 +108,6 @@ const s = StyleSheet.create({
   infoTitle: {
     fontWeight: "600",
   },
-
 
   textInfo: {
     fontWeight: "300",
