@@ -18,50 +18,9 @@ import { showMessage } from "react-native-flash-message";
 
 export const AuthContext = createContext({} as State);
 
-type State = {
-  user: states;
-  isAuth: boolean;
-  dados: TrilhaProps[];
-  singOut: (info: functionSingIn) => Promise<void>;
-  singIn: (info: functionSingIn) => Promise<void>;
-  AddTrilha: (info: functionAdd) => Promise<void>;
-  LogOut: (info: functionLogout) => Promise<void>;
-  Apagar: (idtrilha: string) => Promise<void>;
-  loading: boolean;
-};
+import { State, TrilhaProps, TypeProvider, functionAdd, functionLogout, functionSingIn, idTrilha, states, } from './types'
 
-type states = {
-  email: null | string;
-  uid: number | string | null;
-};
 
-type TypeProvider = {
-  children: ReactNode;
-};
-
-type functionSingIn = {
-  email: string;
-  senha: string;
-};
-
-type functionAdd = {
-  trilha: string | number;
-  nomeTrilha: string | number;
-};
-
-type functionLogout = {
-  user: boolean;
-};
-
-type idTrilha = {
-  uidtrilha: string;
-};
-
-export interface TrilhaProps {
-  trilha: string;
-  nome: string;
-  uidtrilha: string;
-}
 
 export default function AuthProvider({ children }: TypeProvider) {
   const [user, setUser] = useState<states>({
@@ -89,7 +48,7 @@ export default function AuthProvider({ children }: TypeProvider) {
 
   useEffect(() => {
     async function RendleDados() {
-      
+
       const response = collection(db, "trilha");
       const data = query(response, where("uid", "==", user.uid));
       const snapshot = await getDocs(data);

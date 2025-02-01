@@ -12,7 +12,7 @@ import {
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
-import {showMessage} from 'react-native-flash-message'
+import { showMessage } from 'react-native-flash-message'
 import Feather from '@expo/vector-icons/Feather'
 
 import { useContext } from "react";
@@ -20,11 +20,11 @@ import { AuthContext } from "../../contextApi";
 
 export default function AddTrilha() {
 
-  const { AddTrilha,loading } = useContext(AuthContext);
+  const { AddTrilha, loading } = useContext(AuthContext);
 
   const navigation = useNavigation();
   const [trilha, setTrilha] = useState("");
-  const [nomeTrilha, setNometrila] = useState("");
+  const [nomeTrilha, setNometrilha] = useState("");
 
   async function Mandar() {
     if (trilha === "" && nomeTrilha === "") {
@@ -33,11 +33,11 @@ export default function AddTrilha() {
         type: 'warning',
         duration: 2000,
       })
-      return;
+      return
     }
-    AddTrilha({ trilha,nomeTrilha });
+    AddTrilha({ trilha, nomeTrilha });
     setTrilha('')
-    setNometrila('')
+    setNometrilha('')
   }
 
   return (
@@ -48,8 +48,8 @@ export default function AddTrilha() {
             style={s.bntVoltar}
             onPress={() => navigation.goBack()}
           >
-              <Feather name='chevron-left' color='black' size={30}/>
-           
+            <Feather name='chevron-left' color='black' size={30} />
+
           </TouchableOpacity>
         </View>
         <View style={s.form}>
@@ -66,16 +66,16 @@ export default function AddTrilha() {
             placeholder="Oque vai estudar"
             placeholderTextColor="black"
             value={nomeTrilha}
-            onChangeText={setNometrila}
+            onChangeText={setNometrilha}
             style={s.input}
           />
 
           <TouchableOpacity onPress={Mandar} style={s.bntSalvar}>
-           {loading ? (
-              <ActivityIndicator color='white' size={20}/>
-           ) : (
-            <Text style={s.textBnt}>Salvar</Text>
-           )}
+            {loading ? (
+              <ActivityIndicator color='white' size={20} />
+            ) : (
+              <Text style={s.textBnt}>Salvar</Text>
+            )}
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -137,5 +137,5 @@ const s = StyleSheet.create({
     borderRadius: 20,
   },
 
-  
+
 });

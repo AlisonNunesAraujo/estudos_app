@@ -11,8 +11,9 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParamlist } from "../../routs/nav";
 import Feather from "@expo/vector-icons/Feather";
 import { useContext } from "react";
-import { AuthContext, TrilhaProps } from "../../contextApi";
+import { AuthContext } from "../../contextApi";
 import * as Animatable from "react-native-animatable";
+import { TrilhaProps } from "../../contextApi/types";
 
 type RenderTrilhaProps = {
   trilha: TrilhaProps;
@@ -52,7 +53,7 @@ export default function RenderTrilha({ trilha }: RenderTrilhaProps) {
 
 const s = StyleSheet.create({
   bnt: {
-    width: 130,
+    width: 120,
     height: 130,
     backgroundColor: "#fff3ff",
     margin: 13,

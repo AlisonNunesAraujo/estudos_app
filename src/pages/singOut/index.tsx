@@ -16,10 +16,10 @@ import { AuthContext } from "../../contextApi";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 
-import {showMessage} from 'react-native-flash-message'
+import { showMessage } from 'react-native-flash-message'
 
 export default function SingOut() {
-  const { singOut,loading } = useContext(AuthContext);
+  const { singOut, loading } = useContext(AuthContext);
 
   const navigation = useNavigation();
 
@@ -28,11 +28,11 @@ export default function SingOut() {
 
   async function Criar() {
     if (email == "" && senha == "") {
-     showMessage({
-      message: 'Preencha todos os campos',
-      type: 'warning',
-      duration: 3000
-     })
+      showMessage({
+        message: 'Preencha todos os campos',
+        type: 'warning',
+        duration: 3000
+      })
     }
     singOut({ email, senha });
   }
@@ -40,7 +40,7 @@ export default function SingOut() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={s.conteiner}>
-        <StatusBar backgroundColor='white' barStyle={"dark-content"}/>
+        <StatusBar backgroundColor='white' barStyle={"dark-content"} />
         <View style={s.form}>
           <Text style={s.title}>Faça seu cadastro!</Text>
 
@@ -52,7 +52,7 @@ export default function SingOut() {
           />
           <TextInput
             placeholder="Senha"
-          secureTextEntry
+            secureTextEntry
             value={senha}
             onChangeText={setSenha}
             style={s.inputs}
@@ -61,7 +61,7 @@ export default function SingOut() {
           <TouchableOpacity style={s.bnts} onPress={Criar}>
             {loading ? (
               <ActivityIndicator size={20} color="white" />
-            ): (
+            ) : (
               <Text style={s.text}>Fazer cadastro</Text>
             )}
           </TouchableOpacity>
@@ -83,12 +83,10 @@ const s = StyleSheet.create({
 
   form: {
     width: "100%",
-    height: 350,
+    height: '100%',
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#ccc",
-    borderEndEndRadius: 28,
-    borderStartEndRadius: 28,
     boxShadow: '0px 0px 8px 0px',
   },
   title: {
@@ -105,7 +103,7 @@ const s = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 5,
     marginBottom: 15,
-    boxShadow:  '0px 1px 4px 0px'
+    boxShadow: '0px 1px 4px 0px'
   },
   bnts: {
     width: "50%",
@@ -116,8 +114,8 @@ const s = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  text:{
+  text: {
     fontFamily: 'Arial',
-    color:'white'
+    color: 'white'
   }
 });

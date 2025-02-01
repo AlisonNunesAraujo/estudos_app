@@ -24,7 +24,7 @@ export default function EditarTrilha() {
   const route = useRoute<EditarProp>();
   const [tarefa, setTarefa] = useState(false);
 
-  
+
 
   return (
     <ScrollView style={s.conteiner}>

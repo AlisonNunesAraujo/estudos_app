@@ -22,18 +22,18 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { StackParamlist } from "../../routs/navstack";
 
-import { showMessage} from 'react-native-flash-message'
+import { showMessage } from 'react-native-flash-message'
 
 export default function SingIn() {
   const navigation = useNavigation<NativeStackNavigationProp<StackParamlist>>();
 
-  const { singIn,loading } = useContext(AuthContext);
+  const { singIn, loading } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
   async function Logar() {
-    if(email === '' && senha === ''){
+    if (email === '' && senha === '') {
       showMessage({
         message: 'Preencha todos os campos',
         type: 'warning',
@@ -67,11 +67,11 @@ export default function SingIn() {
           />
 
           <TouchableOpacity style={s.bnts} onPress={Logar}>
-           {loading ? (
-            <ActivityIndicator size={20} color="white" />
-          ): (
-            <Text style={s.text}>Acessar</Text>
-          )}
+            {loading ? (
+              <ActivityIndicator size={20} color="white" />
+            ) : (
+              <Text style={s.text}>Acessar</Text>
+            )}
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -82,9 +82,7 @@ export default function SingIn() {
           </TouchableOpacity>
         </Animatable.View>
 
-        <View style={s.areaBemVindo}>
-         <Animatable.Text animation={'fadeInDown'} style={s.textBemVindo}>Bem Vindo!</Animatable.Text>
-        </View>
+
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
@@ -98,12 +96,10 @@ const s = StyleSheet.create({
 
   form: {
     width: "100%",
-    height: 350,
+    height: '100%',
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#ccc",
-    borderEndEndRadius: 28,
-    borderStartEndRadius: 28,
     boxShadow: '0px 0px 8px 0px',
   },
   title: {
@@ -121,7 +117,7 @@ const s = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 5,
     marginBottom: 15,
-    boxShadow:  '0px 1px 4px 0px'
+    boxShadow: '0px 1px 4px 0px'
   },
   bnts: {
     width: "50%",
@@ -137,14 +133,5 @@ const s = StyleSheet.create({
     fontFamily: "Arial",
     color: "white",
   },
-  areaBemVindo:{
-    flex: 1,
-    alignItems: "center",
-  },
-  textBemVindo:{
-    fontSize: 55,
-    fontFamily: 'cursive',
-    marginTop: '20%',
-  }
 
 });

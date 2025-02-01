@@ -48,6 +48,8 @@ export default function Home() {
         data={dados}
         renderItem={({ item }) => <RenderTrilha trilha={item} />}
       />
+
+
     </SafeAreaView>
   );
 }
