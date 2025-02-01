@@ -93,7 +93,7 @@ const s = StyleSheet.create({
     fontSize: 25,
     fontWeight: "700",
     marginBottom: 10,
-    fontFamily: "serif",
+    fontFamily: "Arial",
   },
 
   inputs: {
@@ -103,7 +103,7 @@ const s = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 5,
     marginBottom: 15,
-    boxShadow: '0px 1px 4px 0px'
+    boxShadow: '0px 1px 0px 0px'
   },
   bnts: {
     width: "50%",

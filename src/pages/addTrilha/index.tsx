@@ -54,19 +54,21 @@ export default function AddTrilha() {
         </View>
         <View style={s.form}>
           <Text style={s.title}>Adicione algo na sua trilha de estudos!</Text>
+
+
           <TextInput
-            placeholder="Titulo da sua trilha"
+            placeholder="Nome da sua trilha"
             placeholderTextColor="black"
-            value={trilha}
-            onChangeText={setTrilha}
+            value={nomeTrilha}
+            onChangeText={setNometrilha}
             style={s.input}
           />
 
           <TextInput
-            placeholder="Oque vai estudar"
+            placeholder="Conteudo"
             placeholderTextColor="black"
-            value={nomeTrilha}
-            onChangeText={setNometrilha}
+            value={trilha}
+            onChangeText={setTrilha}
             style={s.input}
           />
 

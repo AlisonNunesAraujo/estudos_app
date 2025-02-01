@@ -8,11 +8,11 @@ import {
   SafeAreaView,
   StyleSheet,
   ActivityIndicator,
-  Image
+  Image,
 } from "react-native";
 
-import * as Animatable from 'react-native-animatable'
-
+import * as Animatable from "react-native-animatable";
+import Feather from "@expo/vector-icons/Feather";
 
 import { StatusBar } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -22,7 +22,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { StackParamlist } from "../../routs/navstack";
 
-import { showMessage } from 'react-native-flash-message'
+import { showMessage } from "react-native-flash-message";
 
 export default function SingIn() {
   const navigation = useNavigation<NativeStackNavigationProp<StackParamlist>>();
@@ -33,13 +33,13 @@ export default function SingIn() {
   const [senha, setSenha] = useState("");
 
   async function Logar() {
-    if (email === '' && senha === '') {
+    if (email === "" && senha === "") {
       showMessage({
-        message: 'Preencha todos os campos',
-        type: 'warning',
+        message: "Preencha todos os campos",
+        type: "warning",
         duration: 3000,
-      })
-      return
+      });
+      return;
     }
     singIn({ email, senha });
   }
@@ -49,11 +49,16 @@ export default function SingIn() {
       <SafeAreaView style={s.conteiner}>
         <StatusBar backgroundColor="white" barStyle={"dark-content"} />
         <Animatable.View animation={"fadeInDown"} style={s.form}>
+          <View
+            style={s.areaIcon}
+          >
+            <Feather name="user" color="black" size={30} />
+          </View>
+
           <Text style={s.title}>Entre na sua conta!</Text>
 
           <TextInput
             placeholder="E-Mail"
-
             value={email}
             onChangeText={setEmail}
             style={s.inputs}
@@ -65,6 +70,7 @@ export default function SingIn() {
             onChangeText={setSenha}
             style={s.inputs}
           />
+
 
           <TouchableOpacity style={s.bnts} onPress={Logar}>
             {loading ? (
@@ -81,8 +87,6 @@ export default function SingIn() {
             <Text style={s.text}>Fazer cadastro</Text>
           </TouchableOpacity>
         </Animatable.View>
-
-
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
@@ -96,11 +100,19 @@ const s = StyleSheet.create({
 
   form: {
     width: "100%",
-    height: '100%',
+    height: "100%",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#ccc",
-    boxShadow: '0px 0px 8px 0px',
+    boxShadow: "0px 0px 8px 0px",
+  },
+
+  areaIcon: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+    borderRadius: "50%",
+    boxShadow: "0px 1px 0px 0px",
   },
   title: {
     fontSize: 25,
@@ -117,7 +129,7 @@ const s = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 5,
     marginBottom: 15,
-    boxShadow: '0px 1px 4px 0px'
+    boxShadow: "0px 1px 2px 0px",
   },
   bnts: {
     width: "50%",
@@ -133,5 +145,4 @@ const s = StyleSheet.create({
     fontFamily: "Arial",
     color: "white",
   },
-
 });
