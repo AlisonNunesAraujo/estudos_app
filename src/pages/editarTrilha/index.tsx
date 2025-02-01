@@ -29,11 +29,11 @@ export default function EditarTrilha() {
   return (
     <ScrollView style={s.conteiner}>
       <View style={s.areaInfo}>
-        <Text style={s.title}>{route.params?.trilha}</Text>
+        <Text style={s.title}>{route.params?.nome}</Text>
 
         <View style={s.areaText}>
           <Feather color="red" size={25} name="clipboard" />
-          <Text style={s.text}>{route.params?.nome}</Text>
+          <Text style={s.text}>{route.params?.trilha}</Text>
         </View>
       </View>
 

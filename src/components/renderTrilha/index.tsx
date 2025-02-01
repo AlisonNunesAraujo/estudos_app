@@ -38,7 +38,7 @@ export default function RenderTrilha({ trilha }: RenderTrilhaProps) {
           })
         }
       >
-        <Text style={s.title}>{trilha.trilha}</Text>
+        <Text style={s.title}>{trilha.nome}</Text>
         <TouchableOpacity onPress={Delete} style={s.bntDelete}>
           {loading ? (
             <ActivityIndicator color="black" size={20} />
